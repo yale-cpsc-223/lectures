@@ -6,3 +6,6 @@ CXXFLAGS="-std=c++17 -Wall -Werror -pedantic -g"
 
 Hello: hello.c
 	${CC} ${CFLAGS} -o $@ $^
+
+Factorial: factorial.c
+	${CC} ${CFLAGS} -o $@ $^
