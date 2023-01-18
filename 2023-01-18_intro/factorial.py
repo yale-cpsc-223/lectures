@@ -7,4 +7,8 @@ def factorial(n):
         n -= 1
     return f
 
-print(factorial(int(input())))
+def main():
+    print(factorial(int(input())))
+
+if __name__ == "__main__":
+    main()

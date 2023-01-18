@@ -1,10 +1,12 @@
-#! /usr/local/bin/clisp
+#! /usr/bin/env clisp
+
 (defun factorial (n)
     (if (= n 0)
 	1
 	(* n (factorial (1- n)))))
+
 (defun main ()
     (let ((n (read)))
-      (print (factorial n))))
+        (print (factorial n))))
 
 (main)
