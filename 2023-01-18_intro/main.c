@@ -4,11 +4,12 @@
 
 int main(int argc, char *argv[])
 {
+    FILE *in = fopen(argv[1], "r");
     int n;
-    while (scanf("%d", &n) == 1)
+    while (fscanf(in, "%d", &n) == 1)
     {
         long answer = factorial(n);
-        printf("%ld\n", answer);
+        fprintf(stdout, "%ld\n", answer);
     }
     return 0;
 }
