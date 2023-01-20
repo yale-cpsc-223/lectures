@@ -1,10 +1,12 @@
-#include <stdio.h>
-#include "libfactorial.c"
+#include "factorial.h"
 
-int main()
+long factorial(int n)
 {
-  int n;
-  scanf("%d", &n);
-  printf("%ld\n", factorial(n));
-  return 0;
+  long f = 1;
+  while (n > 0)
+  {
+      f *= n;
+      n--;
+  }
+  return f;
 }
