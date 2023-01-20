@@ -1,8 +1,10 @@
-CC = gcc
-CFLAGS = -std=c99 -Wall -Werror -pedantic -g
+# C Compiler and Flags
+CC =     gcc
+CFLAGS = -std=c17 -Wall -pedantic -g
 
-CXX=g++
-CXXFLAGS="-std=c++17 -Wall -Werror -pedantic -g"
+# C++ Compiler and Flags
+CXX =      g++
+CXXFLAGS = -std=c++17 -Wall -pedantic -g
 
 Hello: hello.c
 	${CC} ${CFLAGS} -o $@ $^
@@ -10,9 +12,9 @@ Hello: hello.c
 Factorial: factorial.o libfactorial.o
 	${CC} ${CFLAGS}	-o $@ $^
 
-factorial.o: factorial.c
+factorial.o:
 
-libfactorial.o: libfactorial.c
+libfactorial.o:
 
 clean:
 	rm -f *.o
