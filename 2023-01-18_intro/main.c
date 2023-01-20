@@ -4,8 +4,24 @@
 
 int main(int argc, char *argv[])
 {
-    FILE *in = fopen(argv[1], "r");
-    FILE *out = fopen(argv[2], "w");
+    FILE *in, *out;
+    if (argc > 1)
+    {
+        in = fopen(argv[1], "r");
+    }
+    else
+    {
+        in = stdin;
+    }
+
+    if (argc > 2)
+    {
+        out = fopen(argv[2], "w");
+    }
+    else
+    {
+        out = stdout;
+    }
     int n;
     while (fscanf(in, "%d", &n) == 1)
     {
