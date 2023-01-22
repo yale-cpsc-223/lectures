@@ -224,5 +224,5 @@ cython_debug/
 hs_err_pid*
 replay_pid*
 
-# vscode files
+# VS Code files
 .vscode

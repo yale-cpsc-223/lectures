@@ -6,7 +6,7 @@ CFLAGS = -std=c17 -Wall -pedantic -g
 CXX =      g++
 CXXFLAGS = -std=c++17 -Wall -pedantic -g
 
-Factorial: factorial.c
+Factorial: main.c
 	${CC} ${CFLAGS} -o $@ $^
 
 Factorial: factorial.o libfactorial.o
