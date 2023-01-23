@@ -56,8 +56,24 @@
         * This initialization syntax can *only* be used at the point of declaration
 * How long can an array be?
     * Defined by the system, not the language
-    * To help this, C defines `size_t` ("size type") which is, by definition "the maximum size of an array"
-        * On some systems it's small, maybe 16-bit
-        * On the zoo, it's big, 64-bit
+    * To help this, C defines `size_t` ("size type") which is, by definition "the maximum size of an object"
+        * On some systems it's small: as small as 16-bit (since the late '90s)
+        * On the zoo, it's big: 64-bit, specifically it is a type alias for `unsigned long`
+* Arrays and factorial example
+    * Factorial of each number
 
 ## Structs
+* So we can keep related variables *of the same type* together with one another with an array, but what about related variables of *different types*?
+* Consider a program for keeping track of people
+    * People have lots of different properties: first name (`char*`), last name (`char*`), age (`int`?), address, gender, favorite color, etc.
+    * These properties have different types, but we want to *associate* them with one another for a particular person
+* Use a `struct`, which is a **fixed** collection of related variables, accessed *by name* with the *dot syntax*
+* Simple program with `struct person;`
+* `typedef` can be used to improve readability
+* Opaque structs help enforce **abstraction**
+    * Header file: `struct person;`
+    * Source file: `struct person { char* fname; char* lname; int age; ... };`
+    * Including header *does not expose fields of the struct*
+        * `person.fname` will not compile
+    * What if there are relationships among the fields that must be maintained?
+        * `struct array_w_length;`...?
