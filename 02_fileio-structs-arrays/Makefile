@@ -11,9 +11,6 @@ CXXFLAGS = -std=c++17 -Wall -pedantic -g
 Factorial: main.o factorial.o
 	${CC} ${CFLAGS}	-o $@ $^
 
-Factorial: factorial.c
-	${CC} ${CFLAGS} -o $@ $^
-
 clean:
-	rm -rf *.o
-	rm -rf Factorial
+	rm -f *.o
+	rm -f Factorial Hello
