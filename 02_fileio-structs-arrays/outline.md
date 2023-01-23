@@ -47,9 +47,17 @@
     * `int main(int argc, char* argv[]) {...}`
     * We know what an `int` is, but what is `char* argv[]`?
 * `[]` denotes an **array**, so `argv` is an *array* of `char*` (character pointers, a.k.a. strings)
+* An array is a group of related variables, all of the same type, and with systematically-related names
+    * Each individual *element* of an array is accessed with the **accessor** syntax: `argv[i]` where `i` is an integer in [0, `argc`)
 * In C, arrays have a **predefined length** that cannot change after initialization
     * `int array_of_ints[4];` *initializes* a new **array variable** named `array_of_ints` that is an array of 4 `int`s
         * **BEWARE**: the *elements* are all **unitialized**!!
     * `int array_of_ns[] = { 1, 2, 3, 4 };` *initializes* a new **array variable** named `array_of_ints` containing the (4) elements 1, 2, 3, and 4
-    
+        * This initialization syntax can *only* be used at the point of declaration
+* How long can an array be?
+    * Defined by the system, not the language
+    * To help this, C defines `size_t` ("size type") which is, by definition "the maximum size of an array"
+        * On some systems it's small, maybe 16-bit
+        * On the zoo, it's big, 64-bit
 
+## Structs
