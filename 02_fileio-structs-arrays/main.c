@@ -4,31 +4,11 @@
 
 int main(int argc, char *argv[])
 {
-    FILE *in, *out;
-    if (argc > 1)
-    {
-        in = fopen(argv[1], "r");
-    }
-    else
-    {
-        in = stdin;
-    }
-
-    if (argc > 2)
-    {
-        out = fopen(argv[2], "w");
-    }
-    else
-    {
-        out = stdout;
-    }
     int n;
-    while (fscanf(in, "%d", &n) == 1)
+    while (scanf("%d", &n) > 0)
     {
-        long answer = factorial(n);
-        fprintf(out, "%ld\n", answer);
+        long fac = factorial(n);
+        printf("%d! = %ld\n", n, fac);
     }
-    fclose(in);
-    fclose(out);
     return 0;
 }

@@ -2,14 +2,16 @@
 CC =     gcc
 CFLAGS = -std=c17 -Wall -pedantic -g
 
-# C++ Compiler and Flags
-CXX =      g++
-CXXFLAGS = -std=c++17 -Wall -pedantic -g
-
 .PHONY: clean
 
 Factorial: main.o factorial.o
 	${CC} ${CFLAGS}	-o $@ $^
+
+arrays/Factorial: arrays/main.o arrays/factorial.o
+	${CC} ${CFLAGS} -o $@ $^
+
+structs/Person: structs/main.o structs/person.o
+	${CC} ${CFLAGS} -o $@ $^
 
 clean:
 	rm -f *.o
