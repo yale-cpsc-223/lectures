@@ -1,12 +1,14 @@
 #include "factorial.h"
 
+
 long factorial(int n)
 {
-  long f = 1;
-  while (n > 0)
+  if (n == 0)
   {
-      f *= n;
-      n--;
+    return 1;
   }
-  return f;
+  else
+  {
+    return n * factorial(n-1);
+  }
 }

@@ -4,7 +4,7 @@ CFLAGS = -std=c17 -Wall -pedantic -g
 
 .PHONY: clean
 
-Factorial: main.o factorial.o
+Factorial: main.c factorial.c
 	${CC} ${CFLAGS}	-o $@ $^
 
 arrays/Factorial: arrays/main.o arrays/factorial.o
