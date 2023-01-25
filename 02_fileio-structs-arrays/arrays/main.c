@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < n; i++)
     {
-        printf("%2d! = %ld\n", nums[i], factorials[i]);
+        printf("%2d! = %ld\n", i, factorials[i]);
     }
     return 0;
 }
