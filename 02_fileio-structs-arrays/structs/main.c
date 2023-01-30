@@ -14,7 +14,8 @@ int main(int argc, char *argv[])
     me.addr.state = argv[7];
     me.addr.zip = argv[8];
 
-    printf("%p", &me);
+    print_full_name(me);
+    print_address(me);
 
     return 0;
 }
