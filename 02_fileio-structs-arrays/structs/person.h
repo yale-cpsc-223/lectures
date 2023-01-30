@@ -20,7 +20,7 @@ struct person
     struct address addr;
 };
 
-// struct person person_from_file(FILE *fp);
+struct person person_from_file(FILE *fp);
 
 void print_full_name(struct person p);
 
