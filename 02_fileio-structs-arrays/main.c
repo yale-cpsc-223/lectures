@@ -11,15 +11,16 @@
 
 int main(int argc, char *argv[])
 {
-    int n = N1;
-    char name[] = {'A', 'W'};
-    char *exe_name = argv[0];
-    printf("[%s]\n", name);
-    printf("%s\n", exe_name);
-    while (scanf("%d", &n) > 0)
-    {
-        long fac = factorial(n);
-        printf("%d! = %ld\n", n, fac);
-    }
+    int *things = malloc(sizeof(int) * 256);
+    int *other = things;
+    free(things);
+    things = calloc(129, sizeof(int));
+    things = realloc(things, 256 * sizeof(int));
+    things[0] = 42;
+    *things = 67;
+    things[16] = 99;
+    *(things + 16) = 16;
+    printf("%d\n", things[0]);
+    printf("%d\n", things[16]);
     return 0;
 }

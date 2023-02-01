@@ -2,10 +2,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-struct person person_from_file(FILE *fp)
+person person_from_file(FILE *fp)
 {
-    struct person p;
+    person p;
     p.fname = malloc(sizeof(char) * 65);
     p.lname = malloc(sizeof(char) * 65);
     p.addr.line1 = malloc(sizeof(char) * 65);
@@ -17,13 +18,13 @@ struct person person_from_file(FILE *fp)
     return p;
 }
 
-void print_full_name(struct person p)
+void print_full_name(person p)
 {
     printf("%s %s\n", p.fname, p.lname);
 }
 
-void print_address(struct person p)
+void print_address(person p)
 {
-    struct address addr = p.addr;
+    address addr = p.addr;
     printf("%s\n%s\n%s, %s %s\n", addr.line1, addr.line2, addr.city, addr.state, addr.zip);
 }
