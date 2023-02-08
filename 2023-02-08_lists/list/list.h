@@ -4,7 +4,12 @@
 #include <stdlib.h>
 
 // Type of a list (of ints) that can be appended to and removed from
-typedef struct list list;
+typedef struct
+{
+    size_t length;
+    size_t capacity;
+    int *array;
+} list;
 
 // Create a List
 list *create_list();
