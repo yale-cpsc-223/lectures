@@ -1,5 +1,22 @@
 ## Array List Encapsulation and Interface Design
-
+* We want to **encapsulate** the functionality of our array list because it all "goes together"
+* Create a separate source file
+    * Which means a separate header file! The **interface**
+* Decide on what we want to do with a list
+    * Create it
+    * Destroy it
+    * Print it
+    * Append an item to the end of it
+    * Remove an item from the end of it
+    * Properties of the list?
+        * Its length? yes.
+        * Its capacity? no!
+            * The *client* does not care about the capacity. That's an **implementation detail**
+* This interface seems more general than just for a resizing array...could we implement it in a different way?
+* How can we accomodate this, and minimize duplicate code?
+    * **Opaque struct** to separate the implementation from the interface
+    * A key component of **data abstraction**
+    * Implementation is determined at **compile time** when we link object files
 
 ## File I/O in C
 * `printf` / `scanf`
