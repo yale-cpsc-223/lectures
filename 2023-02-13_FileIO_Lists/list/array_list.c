@@ -1,15 +1,9 @@
 #include "list.h"
 #include "array_helpers.h"
+#include <stdio.h>
 
 #define INITIAL_CAPACITY 2
 #define RESIZE_RATIO 2
-
-struct list
-{
-    size_t capacity;
-    size_t length;
-    int *array;
-};
 
 list *list_create()
 {
@@ -56,5 +50,6 @@ void list_destroy(list *lst)
 
 void list_print(list *lst)
 {
+    printf("Capacity %-4zu ", lst->capacity);
     print_arr(lst->array, lst->length);
 }
