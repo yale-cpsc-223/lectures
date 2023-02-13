@@ -2,14 +2,10 @@
 #define _LIST_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 // Type of a list (of ints) that can be appended to and removed from
-typedef struct
-{
-    size_t length;
-    size_t capacity;
-    int *array;
-} list;
+typedef struct implementation list;
 
 // Create a List
 list *list_create();
@@ -27,6 +23,6 @@ int list_remove_last(list *lst);
 void list_destroy(list *lst);
 
 // Prints the list
-void list_print(list *lst);
+void list_print(list *lst, FILE *out);
 
 #endif

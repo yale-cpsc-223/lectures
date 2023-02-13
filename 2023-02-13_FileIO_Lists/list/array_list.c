@@ -5,6 +5,13 @@
 #define INITIAL_CAPACITY 2
 #define RESIZE_RATIO 2
 
+struct implementation
+{
+    size_t length;
+    size_t capacity;
+    int *array;
+};
+
 list *list_create()
 {
     list *lst = malloc(sizeof(list));
@@ -48,8 +55,8 @@ void list_destroy(list *lst)
     free(lst);
 }
 
-void list_print(list *lst)
+void list_print(list *lst, FILE *out)
 {
-    printf("Capacity %-4zu ", lst->capacity);
-    print_arr(lst->array, lst->length);
+    fprintf(out, "Capacity %-4zu ", lst->capacity);
+    print_arr(out, lst->array, lst->length);
 }

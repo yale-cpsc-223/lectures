@@ -6,14 +6,14 @@
 
 void print_arr_colors(int *arr, size_t len, char *color);
 
-void print_arr(int *arr, size_t len)
+void print_arr(FILE *out, int *arr, size_t len)
 {
-    printf("%p->[ ", (void *)arr);
+    fprintf(out, "%p->[ ", (void *)arr);
     for (size_t i = 0; i < len; i++)
     {
-        printf("%d ", arr[i]);
+        fprintf(out, "%d ", arr[i]);
     }
-    printf("]\n");
+    fprintf(out, "]\n");
 }
 
 void print_arr_colors(int *arr, size_t len, char *color)

@@ -3,9 +3,11 @@
 
 int main(int argv, char **argc)
 {
+    FILE *infile = fopen("numbers.in", "r");
+    FILE *outfile = fopen("numbers.out", "a");
     list *lst = list_create();
     int num = 0;
-    while (fscanf(stdin, "%d", &num) > 0)
+    while (fscanf(infile, "%d", &num) > 0)
     {
         if (num >= 0)
         {
@@ -19,8 +21,10 @@ int main(int argv, char **argc)
         }
 
         // Print the important part of the list
-        list_print(lst);
+        list_print(lst, outfile);
     }
-    printf("Done.\n");
+    fprintf(outfile, "Done.\n");
     list_destroy(lst);
+    fclose(infile);
+    fclose(outfile);
 }
