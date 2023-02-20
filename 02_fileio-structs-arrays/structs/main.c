@@ -4,18 +4,18 @@
 
 int main(int argc, char *argv[])
 {
-    struct person me;
-    me.fname = argv[1];
-    me.lname = argv[2];
-    me.age = atoi(argv[3]);
-    me.addr.line1 = argv[4];
-    me.addr.line2 = argv[5];
-    me.addr.city = argv[6];
-    me.addr.state = argv[7];
-    me.addr.zip = argv[8];
+    person *me = malloc(sizeof(person));
+    (*me).fname = argv[1];
+    me->lname = argv[2];
+    me->age = atoi(argv[3]);
+    me->addr.line1 = argv[4];
+    me->addr.line2 = argv[5];
+    me->addr.city = argv[6];
+    me->addr.state = argv[7];
+    me->addr.zip = argv[8];
 
-    print_full_name(me);
-    print_address(me);
+    print_full_name(*me);
+    print_address(*me);
 
     return 0;
 }
