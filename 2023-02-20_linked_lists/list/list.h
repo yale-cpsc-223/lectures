@@ -17,6 +17,7 @@ int list_length(list *lst);
 void list_append(list *lst, int val);
 
 // Removes an element from the (right) end of lst and returns it
+// Asserts that the list is not empty.
 int list_remove_last(list *lst);
 
 // Frees the memory allocated by lst
