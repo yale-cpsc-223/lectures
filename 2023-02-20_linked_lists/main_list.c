@@ -4,7 +4,6 @@
 int main(int argv, char **argc)
 {
     FILE *infile = fopen("numbers.in", "r");
-    FILE *outfile = fopen("numbers.out", "a");
     list *lst = list_create();
     int num = 0;
     while (fscanf(infile, "%d", &num) > 0)
@@ -21,10 +20,9 @@ int main(int argv, char **argc)
         }
 
         // Print the important part of the list
-        list_print(lst, outfile);
+        list_print(lst, stdout);
     }
-    fprintf(outfile, "Done.\n");
+    fprintf(stdout, "Done.\n");
     list_destroy(lst);
     fclose(infile);
-    fclose(outfile);
 }

@@ -1,5 +1,7 @@
 #include "list.h"
 
+#include <assert.h>
+
 typedef struct list_node node;
 
 struct list_node
@@ -24,7 +26,7 @@ int list_length(list *lst)
 {
     int length = 0;
     node *n = lst->head;
-    while (n->next != NULL)
+    while (n != NULL)
     {
         n = n->next;
         length++;
@@ -37,59 +39,68 @@ void list_append(list *lst, int val)
     node *new = malloc(sizeof(node));
     new->payload = val;
     new->next = NULL;
-    if (lst->head == NULL)
+    if (lst->head != NULL)
     {
-        lst->head = new;
+        node *tail = lst->head;
+        while (tail->next != NULL)
+        {
+            tail = tail->next;
+        }
+        tail->next = new;
     }
     else
     {
-        node *tail_candidate = lst->head;
-        while (tail_candidate->next != NULL)
-        {
-            tail_candidate = tail_candidate->next;
-        }
-        tail_candidate->next = new;
+        lst->head = new;
     }
 }
 
 int list_remove_last(list *lst)
 {
-    if (/* list is long */ 1)
+    assert(lst->head != NULL);
+    int val = 0;
+    if (lst->head->next != NULL)
     {
-        node *prev /* TODO */;
-        node *n = lst->head;
-        while (n->next != NULL)
+        node *prev /* TOOD */;
+        node *tail = prev->next;
+        while (tail->next != NULL)
         {
-            n = n->next;
+            prev = tail;
+            tail = prev->next;
         }
+        val = tail->payload;
+        free(tail);
         prev->next = NULL;
-        int ans = n->payload;
-        free(n);
-        return ans;
     }
     else
     {
-        node *to_remove = lst->head;
+        node *tail = lst->head;
+        val = tail->payload;
+        free(tail);
         lst->head = NULL;
-        int ans = to_remove->payload;
-        free(to_remove);
-        return ans;
     }
+    return val;
 }
 
 void list_destroy(list *lst)
 {
-    node *_1 = lst->head;
-    while (_1 != NULL)
+    node *n = lst->head;
+    while (n != NULL)
     {
-        node *_2 = _1->next;
-        free(_1);
-        _1 = _2;
+        node *killed = n;
+        n = n->next;
+        free(killed);
     }
     free(lst);
 }
 
 void list_print(list *lst, FILE *out)
 {
-    fprintf(out, "TODO\n");
+    node *n = lst->head;
+    fprintf(out, "%p -> [ ", (void *)lst);
+    while (n != NULL)
+    {
+        fprintf(out, "%d ", n->payload);
+        n = n->next;
+    }
+    fprintf(out, "]\n");
 }
