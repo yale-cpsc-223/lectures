@@ -41,8 +41,12 @@ void list_append(list *lst, int val)
     new->next = NULL;
     if (lst->head != NULL)
     {
-        new->next = lst->head;
-        lst->head = new;
+        node *tail = lst->head;
+        while (tail->next != NULL)
+        {
+            tail = tail->next;
+        }
+        tail->next = new;
     }
     else
     {
@@ -56,20 +60,16 @@ int list_remove_last(list *lst)
     int val = 0;
     if (lst->head->next != NULL)
     {
-        node *last = lst->head;
-        lst->head = last->next;
-        val = last->payload;
-        free(last);
-        // node *prev = lst->head;
-        // node *tail = prev->next;
-        // while (tail->next != NULL)
-        // {
-        //     prev = tail;
-        //     tail = tail->next;
-        // }
-        // val = tail->payload;
-        // free(tail);
-        // prev->next = NULL;
+        node *pre_tail = lst->head;
+        node *tail = pre_tail->next;
+        while (tail->next != NULL)
+        {
+            pre_tail = tail;
+            tail = pre_tail->next;
+        }
+        val = tail->payload;
+        free(tail);
+        pre_tail->next = NULL;
     }
     else
     {

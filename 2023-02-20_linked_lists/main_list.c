@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "list/list.h"
 
-int main(int argv, char **argc)
+int main(int argc, char **argv)
 {
-    FILE *infile = fopen("numbers.in", "r");
+    FILE *infile = fopen(argv[1], "r");
     list *lst = list_create();
     int num = 0;
     while (fscanf(infile, "%d", &num) > 0)
