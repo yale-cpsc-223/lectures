@@ -2,12 +2,40 @@
 #include <stdio.h>
 
 #include "list/list.h"
+#include "list_print.h"
 #include "mergesort.h"
+
+int mainintcmp(void *p1, void *p2)
+{
+    int i1 = *(int *)p1, i2 = *(int *)p2;
+    if (i1 < i2)
+    {
+        return -1;
+    }
+    else if (i1 > i2)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void simple_int_print(void *item)
+{
+    printf("%d\n", *(int *)item);
+}
+
+void int_print(void *item)
+{
+    printf("The item is: %d\n", *(int *)item);
+}
 
 int main(int argc, char *argv[])
 {
     // Create a list
-    list *lst = list_create();
+    list *lst = list_create(mainintcmp);
 
     FILE *infile = fopen(argv[1], "r");
     int n;
@@ -21,12 +49,8 @@ int main(int argc, char *argv[])
 
     mergesort(lst, 0, list_length(lst) - 1);
 
-    while (list_length(lst) > 0)
-    {
-        int *n = list_remove(lst, 0);
-        printf("%d\n", *n);
-        free(n);
-    }
+    print_list(lst, int_print);
+
     list_destroy(lst);
 
     printf("Done.\n");

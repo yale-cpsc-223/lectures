@@ -11,9 +11,10 @@ struct implementation
     size_t capacity;
     size_t length;
     void **array;
+    int (*cmp)(void *, void *);
 };
 
-list *list_create()
+list *list_create(int (*cmp)(void *, void *))
 {
     list *lst = malloc(sizeof(list));
     if (lst != NULL)
@@ -21,6 +22,7 @@ list *list_create()
         lst->capacity = INITIAL_CAPACITY;
         lst->length = 0;
         lst->array = calloc(lst->capacity, sizeof(void *));
+        lst->cmp = cmp;
     }
     return lst;
 }
@@ -61,6 +63,13 @@ void *list_access(list *lst, size_t idx)
     {
         return lst->array[idx];
     }
+}
+
+int list_compare_items(list *lst, size_t idxa, size_t idxb)
+{
+    void *itema = list_access(lst, idxa);
+    void *itemb = list_access(lst, idxb);
+    return lst->cmp(itema, itemb);
 }
 
 size_t list_length(list *lst)

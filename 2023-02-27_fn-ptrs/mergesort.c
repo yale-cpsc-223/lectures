@@ -4,7 +4,7 @@ void merge(list *lst, size_t start, size_t mid, size_t end)
 {
 
     // If the direct merge is already sorted
-    if (*(int *)list_access(lst, mid) <= *(int *)list_access(lst, mid + 1))
+    if (list_compare_items(lst, mid, mid + 1) <= 0)
     {
         return;
     }
@@ -15,7 +15,7 @@ void merge(list *lst, size_t start, size_t mid, size_t end)
     {
 
         // If element 1 is in right place
-        if (*(int *)list_access(lst, start) <= *(int *)list_access(lst, mid + 1))
+        if (list_compare_items(lst, start, mid + 1) <= 0)
         {
             start++;
         }
