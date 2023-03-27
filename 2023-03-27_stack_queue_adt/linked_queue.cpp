@@ -13,11 +13,6 @@ public:
         this->payload = payload;
         this->next = nullptr;
     }
-
-    ~node()
-    {
-        delete this->next;
-    }
 };
 
 Queue::Queue()
@@ -26,10 +21,7 @@ Queue::Queue()
     this->tail = nullptr;
 }
 
-Queue::~Queue()
-{
-    delete this->head;
-}
+Queue::~Queue() = default;
 
 void Queue::enqueue(int elem)
 {

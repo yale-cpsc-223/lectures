@@ -13,11 +13,6 @@ public:
         this->payload = payload;
         this->next = nullptr;
     }
-
-    ~node()
-    {
-        delete this->next;
-    }
 };
 
 Stack::Stack()
@@ -25,10 +20,7 @@ Stack::Stack()
     this->top = nullptr;
 }
 
-Stack::~Stack()
-{
-    delete this->top;
-}
+Stack::~Stack() = default;
 
 void Stack::push(int elem)
 {
