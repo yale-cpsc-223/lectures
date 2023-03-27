@@ -28,5 +28,5 @@ parser: parser.o $(LS_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	$(RM) $(S_OBJS) $(Q_OBJS)
+	$(RM) $(BINS) *.o
 
