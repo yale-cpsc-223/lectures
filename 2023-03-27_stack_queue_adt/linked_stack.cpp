@@ -59,27 +59,3 @@ bool Stack::isEmpty()
 {
     return this->top == nullptr;
 }
-
-/*****************
- * MAIN FUNCTION *
- *****************/
-
-int main()
-{
-    Stack s;
-
-    std::string input;
-    std::getline(std::cin, input);
-    while (!input.empty())
-    {
-        int x = std::stoi(input);
-        s.push(x);
-        std::getline(std::cin, input);
-    }
-
-    while (!s.isEmpty())
-    {
-        int next = s.pop();
-        std::cout << next << std::endl;
-    }
-}

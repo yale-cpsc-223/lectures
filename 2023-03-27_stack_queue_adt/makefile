@@ -9,19 +9,22 @@ LS_OBJS=$(LS_SRCS:.cpp=.o)
 LQ_OBJS=$(LQ_SRCS:.cpp=.o)
 CQ_OBJS=$(CQ_SRCS:.cpp=.o)
 
-BINS = linked_stack linked_queue circular_queue
+BINS = main_ls main_lq main_cq parser
 
 .PHONY: clean all
 
 all: $(BINS)
 
-linked_stack: $(LS_OBJS)
+main_ls: main_ls.o $(LS_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-linked_queue: $(LQ_OBJS)
+main_lq: main_lq.o $(LQ_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-circular_queue: $(CQ_OBJS)
+main_cq: main_cq.o $(CQ_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+parser: parser.o $(LS_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
