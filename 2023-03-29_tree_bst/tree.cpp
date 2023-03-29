@@ -55,10 +55,10 @@ public:
 
     void pretty_print(std::ostream &os, int indent)
     {
-        bool hasRight = static_cast<bool>(this->kind() & Kind::RIGHT_CHILD);
-        bool hasLeft = static_cast<bool>(this->kind() & Kind::LEFT_CHILD);
+        bool hasRightChild = static_cast<bool>(this->kind() & Kind::RIGHT_CHILD);
+        bool hasLeftChild = static_cast<bool>(this->kind() & Kind::LEFT_CHILD);
 
-        if (hasRight)
+        if (hasRightChild)
         {
             this->right->pretty_print(os, indent + 1);
         }
@@ -66,14 +66,14 @@ public:
         {
             os << std::setw(indent * TABW) << ' ';
         }
-        if (hasRight)
+        if (hasRightChild)
         {
             os << " /" << std::endl
                << std::setw(indent * TABW) << ' ';
         }
         std::cout << this->payload << std::endl
                   << ' ';
-        if (hasLeft)
+        if (hasLeftChild)
         {
             std::cout << std::setw(indent * TABW) << ' ' << " \\" << std::endl;
             this->left->pretty_print(os, indent + 1);
@@ -264,21 +264,37 @@ BST::~BST()
 
 void BST::traverse(Order order, std::function<void(int)> visit) const
 {
+    if (this->root == nullptr)
+    {
+        return;
+    }
     traverse_node(this->root, order, visit);
 }
 
 size_t BST::height() const
 {
+    if (this->root == nullptr)
+    {
+        return 0;
+    }
     return node_height(this->root);
 }
 
 size_t BST::size() const
 {
+    if (this->root == nullptr)
+    {
+        return 0;
+    }
     return node_size(this->root);
 }
 
 bool BST::search(int x) const
 {
+    if (this->root == nullptr)
+    {
+        return false;
+    }
     return node_search(this->root, x);
 }
 
@@ -287,31 +303,26 @@ void BST::insert(int x)
     if (this->root == nullptr)
     {
         this->root = new BSTNode(x);
+        return;
     }
-    else
-    {
-        BSTNode *new_root = node_insert(this->root, x);
-        assert(new_root == this->root);
-    }
+    this->root = node_insert(this->root, x);
 }
 
 void BST::remove(int x)
 {
-    if (this->root != nullptr)
+    if (this->root == nullptr)
     {
-        this->root = node_remove(this->root, x);
+        return;
     }
+    this->root = node_remove(this->root, x);
 }
 
 std::ostream &operator<<(std::ostream &os, const BST *tree)
 {
-    if (tree->root != nullptr)
+    if (tree->root == nullptr)
     {
-        tree->root->pretty_print(os, 0);
+        return os << std::endl;
     }
-    else
-    {
-        os << std::endl;
-    }
+    tree->root->pretty_print(os, 0);
     return os;
 }
