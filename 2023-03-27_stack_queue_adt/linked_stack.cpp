@@ -13,6 +13,11 @@ public:
         this->payload = payload;
         this->next = nullptr;
     }
+
+    ~node()
+    {
+        delete this->next;
+    }
 };
 
 Stack::Stack()
