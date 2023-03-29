@@ -227,3 +227,6 @@ replay_pid*
 
 # VS Code files
 .vscode
+
+# Other Files
+*~
