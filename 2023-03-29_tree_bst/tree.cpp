@@ -5,6 +5,7 @@
 
 #define TABW 4
 
+/* Enum for node "Kind"s. */
 enum class Kind : int
 {
     LEAF = 0b00,
@@ -13,18 +14,27 @@ enum class Kind : int
     TWO_CHILDREN = 0b11
 };
 
+/*
+ * Returns the Kind resulting from the bitwise-and of the integer values of the two operands.
+ */
 const Kind operator&(const Kind &lhs, const Kind &rhs)
 {
     const Kind ans = static_cast<Kind>(static_cast<int>(lhs) & static_cast<int>(rhs));
     return ans;
 }
 
+/*
+ * Returns the Kind resulting from the bitwise-or of the integer values of the two operands.
+ */
 const Kind operator|(const Kind &lhs, const Kind &rhs)
 {
     const Kind ans = static_cast<Kind>(static_cast<int>(lhs) | static_cast<int>(rhs));
     return ans;
 }
 
+/*
+Class for a node in the linked BST implementation.
+*/
 class BSTNode
 {
 public:
@@ -39,6 +49,7 @@ public:
         delete this->right;
     }
 
+    /* Reports the Kind of this node (one of LEAF, LEFT_CHILD, RIGHT_CHILD, TWO_CHILDREN).*/
     const Kind kind()
     {
         Kind n = Kind::LEAF;
@@ -53,6 +64,9 @@ public:
         return n;
     }
 
+    /*
+    Pretty-prints the tree rooted at this node.
+    */
     void pretty_print(std::ostream &os, int indent)
     {
         bool hasRightChild = static_cast<bool>(this->kind() & Kind::RIGHT_CHILD);
@@ -81,6 +95,9 @@ public:
     }
 };
 
+/*
+Traverse the tree rooted at node with the given order, calling function visit at each node.
+ */
 void traverse_node(BSTNode *node, Order order, std::function<void(int)> visit)
 {
     if (node != nullptr)
@@ -108,6 +125,7 @@ void traverse_node(BSTNode *node, Order order, std::function<void(int)> visit)
     }
 }
 
+/* Reports the height of the tree rooted at node. */
 size_t node_height(BSTNode *node)
 {
     if (node == nullptr)
@@ -122,6 +140,7 @@ size_t node_height(BSTNode *node)
     }
 }
 
+/* Reports the number of nodes in the tree rooted at node. */
 size_t node_size(BSTNode *node)
 {
     if (node == nullptr)
@@ -137,14 +156,17 @@ size_t node_size(BSTNode *node)
     }
 }
 
+/* Reports where there is a node in the tree rooted at node with payload equal to x. */
 bool node_search(BSTNode *node, int x)
 {
     if (node == nullptr)
     {
+        // We've walked off the bottom of the tree without finding x.
         return false;
     }
     if (node->payload == x)
     {
+        // We found x!
         return true;
     }
     else if (x < node->payload)
@@ -157,14 +179,17 @@ bool node_search(BSTNode *node, int x)
     }
 }
 
+/* Inserts the value x into the tree rooted at node, and returns the root of the tree. */
 BSTNode *node_insert(BSTNode *node, int x)
 {
     if (node == nullptr)
     {
+        // If the tree is empty, make a new node and return it.
         return new BSTNode(x);
     }
     else
     {
+        // Otherwise, decide which direction to go and insert the node in the appropriate subtree.
         BSTNode *root = node;
         if (x < node->payload)
         {
@@ -176,12 +201,14 @@ BSTNode *node_insert(BSTNode *node, int x)
         }
         else
         {
-            assert(false);
+            // Do nothing if a repeat value is inserted.
         }
         return root;
     }
 }
 
+/* Reports the minimium value in the tree rooted at node.
+The tree must not be empty.*/
 const int node_min_value(BSTNode *node)
 {
     assert(node != nullptr);
@@ -192,6 +219,9 @@ const int node_min_value(BSTNode *node)
     return node->payload;
 }
 
+/* Removes a node with value x from the tree rooted at node, and returns the root of the updated tree.
+If x is not the value of any node in the tree, this leaves the tree unchanged.
+*/
 BSTNode *node_remove(BSTNode *node, int x)
 {
     if (node == nullptr)
@@ -211,6 +241,7 @@ BSTNode *node_remove(BSTNode *node, int x)
     }
     else
     {
+        // We found the value. Remove it.
         BSTNode *root = node;
         switch (node->kind())
         {
@@ -233,6 +264,12 @@ BSTNode *node_remove(BSTNode *node, int x)
         }
         case Kind::TWO_CHILDREN:
         {
+            /* Complicated case:
+                1. Find the min value in the right subtree
+                2. Make a new root with that value
+                3. Replace node with the new root
+                4. Remove the new root from the right subtree
+             */
             int root_val = node_min_value(node->right);
             root = new BSTNode(root_val);
             root->left = node->left;
@@ -246,6 +283,7 @@ BSTNode *node_remove(BSTNode *node, int x)
         return root;
     }
 }
+
 BST::BST() : root(nullptr) {}
 
 BST::BST(std::istream &in) : BST::BST()
@@ -324,6 +362,5 @@ std::ostream &operator<<(std::ostream &os, const BST *tree)
         return os << std::endl;
     }
     tree->root->pretty_print(os, 0);
-
     return os << '\r';
 }
