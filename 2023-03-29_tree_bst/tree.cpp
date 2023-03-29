@@ -1,11 +1,11 @@
 #include "tree.hpp"
 
+#include <cassert>
 #include <iomanip>
-#include <string>
 
 #define TABW 4
 
-enum Kind : int
+enum class Kind : int
 {
     LEAF = 0b00,
     LEFT_CHILD = 0b01,
@@ -15,7 +15,13 @@ enum Kind : int
 
 const Kind operator&(const Kind &lhs, const Kind &rhs)
 {
-    const Kind ans = Kind((int)lhs & (int)rhs);
+    const Kind ans = static_cast<Kind>(static_cast<int>(lhs) & static_cast<int>(rhs));
+    return ans;
+}
+
+const Kind operator|(const Kind &lhs, const Kind &rhs)
+{
+    const Kind ans = static_cast<Kind>(static_cast<int>(lhs) | static_cast<int>(rhs));
     return ans;
 }
 
@@ -27,24 +33,32 @@ public:
     BSTNode *right;
 
     BSTNode(int x) : payload(x), left(nullptr), right(nullptr) {}
+    ~BSTNode()
+    {
+        delete this->left;
+        delete this->right;
+    }
 
     const Kind kind()
     {
-        Kind n = LEAF;
+        Kind n = Kind::LEAF;
         if (this->left != nullptr)
         {
-            n = n & Kind::LEFT_CHILD;
+            n = n | Kind::LEFT_CHILD;
         }
         if (this->right != nullptr)
         {
-            n = n & Kind::RIGHT_CHILD;
+            n = n | Kind::RIGHT_CHILD;
         }
         return n;
     }
 
     void pretty_print(std::ostream &os, int indent)
     {
-        if (this->right != nullptr)
+        bool hasRight = static_cast<bool>(this->kind() & Kind::RIGHT_CHILD);
+        bool hasLeft = static_cast<bool>(this->kind() & Kind::LEFT_CHILD);
+
+        if (hasRight)
         {
             this->right->pretty_print(os, indent + 1);
         }
@@ -52,14 +66,14 @@ public:
         {
             os << std::setw(indent * TABW) << ' ';
         }
-        if (this->right != nullptr)
+        if (hasRight)
         {
             os << " /" << std::endl
                << std::setw(indent * TABW) << ' ';
         }
         std::cout << this->payload << std::endl
                   << ' ';
-        if (this->left != nullptr)
+        if (hasLeft)
         {
             std::cout << std::setw(indent * TABW) << ' ' << " \\" << std::endl;
             this->left->pretty_print(os, indent + 1);
@@ -200,30 +214,30 @@ BSTNode *node_remove(BSTNode *node, int x)
         BSTNode *root = node;
         switch (node->kind())
         {
-        case LEAF:
+        case Kind::LEAF:
         {
             root = nullptr;
             break;
         }
-        case LEFT_CHILD:
+        case Kind::LEFT_CHILD:
         {
             root = node->left;
             node->left = nullptr;
             break;
         }
-        case RIGHT_CHILD:
+        case Kind::RIGHT_CHILD:
         {
             root = node->right;
             node->right = nullptr;
             break;
         }
-        case TWO_CHILDREN:
+        case Kind::TWO_CHILDREN:
         {
             int root_val = node_min_value(node->right);
             root = new BSTNode(root_val);
             root->left = node->left;
-            root->right = node_remove(node->right, root->payload);
             node->left = nullptr;
+            root->right = node_remove(node->right, root_val);
             node->right = nullptr;
             break;
         }
@@ -243,7 +257,10 @@ BST::BST(std::istream &in) : BST::BST()
     }
 }
 
-BST::~BST() = default;
+BST::~BST()
+{
+    delete this->root;
+}
 
 void BST::traverse(Order order, std::function<void(int)> visit) const
 {
@@ -282,7 +299,7 @@ void BST::remove(int x)
 {
     if (this->root != nullptr)
     {
-        node_remove(this->root, x);
+        this->root = node_remove(this->root, x);
     }
 }
 

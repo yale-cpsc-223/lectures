@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <functional>
+
 enum Order
 {
     IN_ORDER,

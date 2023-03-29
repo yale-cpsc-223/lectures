@@ -37,13 +37,18 @@ int main(int argc, char *argv[])
     std::cout << "4? " << _4_is_present << std::endl
               << std::endl;
 
-    std::cout << "AFTER REMOVE 5:" << std::endl;
-    tree->remove(5);
+    std::cout << "AFTER REMOVE 2:" << std::endl;
+    tree->remove(2);
     std::cout << tree << std::endl
               << std::endl;
 
-    std::cout << "AFTER REMOVE 2:" << std::endl;
-    tree->remove(2);
+    std::cout << "AFTER REMOVE 8:" << std::endl;
+    tree->remove(8);
+    std::cout << tree << std::endl
+              << std::endl;
+
+    std::cout << "AFTER REMOVE 3:" << std::endl;
+    tree->remove(3);
     std::cout << tree << std::endl
               << std::endl;
 
