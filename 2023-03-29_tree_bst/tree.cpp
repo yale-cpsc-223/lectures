@@ -324,5 +324,6 @@ std::ostream &operator<<(std::ostream &os, const BST *tree)
         return os << std::endl;
     }
     tree->root->pretty_print(os, 0);
-    return os;
+
+    return os << '\r';
 }

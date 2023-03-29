@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #include "tree.hpp"
 
@@ -9,7 +11,26 @@ void print_int(int x)
 
 int main(int argc, char *argv[])
 {
-    BST *tree = new BST(std::cin);
+    BST *tree;
+    if (argc == 2)
+    {
+        std::ifstream in;
+        in.open(argv[1]);
+        tree = new BST(in);
+        in.close();
+    }
+    else
+    {
+        tree = new BST();
+        int val;
+        while (std::cin >> val)
+        {
+            tree->insert(val);
+            std::cout << std::string(16, '-') << std::endl;
+            std::cout << tree;
+            std::cout << std::string(16, '-') << std::endl;
+        }
+    }
 
     std::cout << "IN ORDER TRAVERSAL:" << std::endl;
     tree->traverse(IN_ORDER, print_int);
