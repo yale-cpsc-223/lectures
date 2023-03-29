@@ -19,16 +19,16 @@ public:
     ~BST();
 
     /* Traverse a BST with the given order, calling function visit at each node. */
-    void traverse(Order order, std::function<void(int)> visit);
+    void traverse(Order order, std::function<void(int)> visit) const;
 
     /* Reports the height of the BST. */
-    size_t height();
+    size_t height() const;
 
-    /* Reports the numbe of nodes in this BST. */
-    size_t size();
+    /* Reports the number of nodes in this BST. */
+    size_t size() const;
 
     /* Search for x in the BST and report whether it is present. */
-    bool search(int x);
+    bool search(int x) const;
 
     /* Insert x into the BST. */
     void insert(int x);
@@ -36,9 +36,8 @@ public:
     /* Remove x from the BST. */
     void remove(int x);
 
-    void pretty_print(std::ostream &os) const;
-
-    friend std::ostream &operator<<(std::ostream &os, const BST &tree);
+    /* Pretty-prints the tree. */
+    friend std::ostream &operator<<(std::ostream &os, const BST *tree);
 
 private:
     BSTNode *root;

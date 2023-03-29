@@ -1,6 +1,9 @@
 #include "tree.hpp"
 
-#define TAB "  "
+#include <iomanip>
+#include <string>
+
+#define TABW 4
 
 enum Kind : int
 {
@@ -41,35 +44,25 @@ public:
 
     void pretty_print(std::ostream &os, int indent)
     {
-        for (int i = 0; i < indent; i++)
-        {
-            os << TAB;
-        }
-        os << this->payload << std::endl;
-        if (this->left != nullptr)
-        {
-            this->left->pretty_print(os, indent + 1);
-        }
-        else if (this->right != nullptr)
-        {
-            for (int i = 0; i < indent + 1; i++)
-            {
-                os << TAB;
-            }
-            os << '/' << std::endl;
-        }
-
         if (this->right != nullptr)
         {
             this->right->pretty_print(os, indent + 1);
         }
-        else if (this->left != nullptr)
+        if (indent)
         {
-            for (int i = 0; i < indent + 1; i++)
-            {
-                os << TAB;
-            }
-            os << '\\' << std::endl;
+            os << std::setw(indent * TABW) << ' ';
+        }
+        if (this->right != nullptr)
+        {
+            os << " /" << std::endl
+               << std::setw(indent * TABW) << ' ';
+        }
+        std::cout << this->payload << std::endl
+                  << ' ';
+        if (this->left != nullptr)
+        {
+            std::cout << std::setw(indent * TABW) << ' ' << " \\" << std::endl;
+            this->left->pretty_print(os, indent + 1);
         }
     }
 };
@@ -132,6 +125,10 @@ size_t node_size(BSTNode *node)
 
 bool node_search(BSTNode *node, int x)
 {
+    if (node == nullptr)
+    {
+        return false;
+    }
     if (node->payload == x)
     {
         return true;
@@ -205,7 +202,7 @@ BSTNode *node_remove(BSTNode *node, int x)
         {
         case LEAF:
         {
-            assert(false);
+            root = nullptr;
             break;
         }
         case LEFT_CHILD:
@@ -248,22 +245,22 @@ BST::BST(std::istream &in) : BST::BST()
 
 BST::~BST() = default;
 
-void BST::traverse(Order order, std::function<void(int)> visit)
+void BST::traverse(Order order, std::function<void(int)> visit) const
 {
     traverse_node(this->root, order, visit);
 }
 
-size_t BST::height()
+size_t BST::height() const
 {
     return node_height(this->root);
 }
 
-size_t BST::size()
+size_t BST::size() const
 {
     return node_size(this->root);
 }
 
-bool BST::search(int x)
+bool BST::search(int x) const
 {
     return node_search(this->root, x);
 }
@@ -289,13 +286,15 @@ void BST::remove(int x)
     }
 }
 
-void BST::pretty_print(std::ostream &os) const
+std::ostream &operator<<(std::ostream &os, const BST *tree)
 {
-    this->root->pretty_print(os, 0);
-}
-
-std::ostream &operator<<(std::ostream &os, const BST &tree)
-{
-    tree.pretty_print(os);
+    if (tree->root != nullptr)
+    {
+        tree->root->pretty_print(os, 0);
+    }
+    else
+    {
+        os << std::endl;
+    }
     return os;
 }
