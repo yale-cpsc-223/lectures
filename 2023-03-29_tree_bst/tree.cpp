@@ -270,6 +270,7 @@ BSTNode *node_remove(BSTNode *node, int x)
                 3. Replace node with the new root
                 4. Remove the new root from the right subtree
              */
+
             int root_val = node_min_value(node->right);
             root = new BSTNode(root_val);
             root->left = node->left;
